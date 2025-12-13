@@ -33,9 +33,19 @@ async function run() {
       res.send(result);
     });
 
-    
+    // Get All Products Collection
+    app.get("/products", async (req, res) => {
+      const products = await productCollection.find().toArray();
+      res.send(products);
+    });
 
-    
+    // Get Single Product in DB
+    app.get("/product/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const item = await productCollection.findOne(query);
+      res.send(item);
+    });
 
     
 
